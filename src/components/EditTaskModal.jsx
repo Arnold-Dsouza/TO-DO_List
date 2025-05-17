@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import TeamMemberSelection from './TeamMemberSelection';
+import { useSpring, animated } from '@react-spring/web';
 
 const EditTaskModal = ({
   isOpen,
@@ -11,6 +12,12 @@ const EditTaskModal = ({
   openTeamMembersModal,
 }) => {
   const editTaskNameInputRef = useRef(null);
+
+  const modalSpring = useSpring({
+    opacity: isOpen ? 1 : 0,
+    transform: isOpen ? 'scale(1)' : 'scale(0.95)',
+    config: { tension: 300, friction: 20 }
+  });
 
   useEffect(() => {
     if (isOpen && editTaskNameInputRef.current) {
@@ -24,7 +31,7 @@ const EditTaskModal = ({
     }
   };
 
-  if (!editingTask) return null;
+  if (!editingTask || !isOpen) return null;
 
   // Initialize assignedMembers array if it doesn't exist
   if (!editingTask.assignedMembers) {
@@ -32,21 +39,23 @@ const EditTaskModal = ({
   }
 
   return (
-    <div
-      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity ${
-        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-      }`}
-    >
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <animated.div 
+        style={modalSpring}
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6"
+      >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Edit Item</h2>
-          <span className="text-2xl cursor-pointer" onClick={onClose}>
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Edit Item</h2>
+          <button 
+            onClick={onClose}
+            className="text-2xl text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+          >
             &times;
-          </span>
+          </button>
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Task name
             </label>
             <input
@@ -56,12 +65,12 @@ const EditTaskModal = ({
                 setEditingTask({ ...editingTask, name: e.target.value })
               }
               onKeyDown={handleEditKeyDown}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               ref={editTaskNameInputRef}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Note
             </label>
             <input
@@ -70,12 +79,12 @@ const EditTaskModal = ({
               onChange={(e) =>
                 setEditingTask({ ...editingTask, note: e.target.value })
               }
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Priority
               </label>
               <select
@@ -86,7 +95,7 @@ const EditTaskModal = ({
                     priority: parseInt(e.target.value),
                   })
                 }
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               >
                 <option value={1}>Low</option>
                 <option value={2}>Normal</option>
@@ -96,7 +105,7 @@ const EditTaskModal = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Due date
               </label>
               <input
@@ -105,10 +114,11 @@ const EditTaskModal = ({
                 onChange={(e) =>
                   setEditingTask({ ...editingTask, dueDate: e.target.value })
                 }
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
-          </div>          {/* Team Member Selection */}
+          </div>
+          {/* Team Member Selection */}
           <TeamMemberSelection
             teamMembers={teamMembers || []}
             selectedMembers={editingTask.assignedMembers || []}
@@ -117,42 +127,24 @@ const EditTaskModal = ({
             }
             onManageMembers={openTeamMembersModal}
           />
-
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="markAsCompleted"
-              checked={editingTask.checked}
-              onChange={(e) =>
-                setEditingTask({ ...editingTask, checked: e.target.checked })
-              }
-              className="h-4 w-4 text-blue-500 focus:ring-blue-400"
-            />
-            <label
-              htmlFor="markAsCompleted"
-              className="ml-2 text-sm text-gray-700"
-            >
-              Mark as completed
-            </label>
-          </div>
-          <div className="flex justify-end space-x-3">
+          <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               Cancel
             </button>
             <button
               type="button"
               onClick={() => saveEditedTask(false)}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
             >
-              Save
+              Save Changes
             </button>
           </div>
         </div>
-      </div>
+      </animated.div>
     </div>
   );
 };
