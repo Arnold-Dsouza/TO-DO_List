@@ -1,5 +1,6 @@
 import React from 'react';
 import Avatar from './Avatar';
+import { useSpring, animated } from '@react-spring/web';
 
 const TaskFilter = ({ 
   priorities,
@@ -49,10 +50,10 @@ const TaskFilter = ({
               type="button"
               onClick={() => handlePriorityToggle(priority)}
               className={`
-                px-3 py-1 rounded-md text-xs font-medium 
+                px-3 py-1 rounded-md text-xs font-medium transition-all duration-200
                 ${selectedPriorities.includes(priority) 
-                  ? `${priorityColors[priority].bg} ${priorityColors[priority].text} border-2 ${priorityColors[priority].border}` 
-                  : 'bg-gray-100 text-gray-600 border-2 border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'}
+                  ? `${priorityColors[priority].bg} ${priorityColors[priority].text} border-2 ${priorityColors[priority].border} scale-105` 
+                  : 'bg-gray-100 text-gray-600 border-2 border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 hover:scale-105'}
               `}
             >
               {priorityColors[priority].label}
@@ -62,7 +63,7 @@ const TaskFilter = ({
             <button
               type="button"
               onClick={() => onPriorityChange([])}
-              className="text-xs text-gray-500 hover:text-gray-700 ml-1"
+              className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors ml-1"
             >
               Clear
             </button>
@@ -89,27 +90,43 @@ const TaskFilter = ({
         <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Assignees:</span>
-            {teamMembers.map(member => (
-              <button
-                key={member.id}
-                type="button"
-                onClick={() => handleMemberToggle(member.id)}
-                className={`
-                  flex items-center gap-1 px-2 py-1 rounded-full text-xs
-                  ${selectedMembers.includes(member.id) 
-                    ? 'bg-blue-100 text-blue-800 border border-blue-300 dark:bg-blue-800 dark:text-blue-100 dark:border-blue-600' 
-                    : 'bg-gray-100 text-gray-600 border border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'}
-                `}
-              >
-                <Avatar name={member.name} size="sm" />
-                <span>{member.name}</span>
-              </button>
-            ))}
+            {teamMembers.map(member => {
+              const isSelected = selectedMembers.includes(member.id);
+              const springProps = useSpring({
+                scale: isSelected ? 1.05 : 1,
+                backgroundColor: isSelected ? '#dbeafe' : '#f3f4f6',
+                color: isSelected ? '#1e40af' : '#4b5563',
+                config: { tension: 300, friction: 10 }
+              });
+
+              return (
+                <animated.button
+                  key={member.id}
+                  type="button"
+                  onClick={() => handleMemberToggle(member.id)}
+                  style={{
+                    transform: springProps.scale.to(s => `scale(${s})`),
+                    backgroundColor: springProps.backgroundColor,
+                    color: springProps.color
+                  }}
+                  className={`
+                    flex items-center gap-1 px-2 py-1 rounded-full text-xs
+                    transition-all duration-200 hover:shadow-md
+                    ${isSelected 
+                      ? 'border-2 border-blue-300 dark:border-blue-600 dark:bg-blue-800 dark:text-blue-100' 
+                      : 'border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300'}
+                  `}
+                >
+                  <Avatar name={member.name} size="sm" />
+                  <span>{member.name}</span>
+                </animated.button>
+              );
+            })}
             {selectedMembers.length > 0 && (
               <button
                 type="button"
                 onClick={() => onMemberChange([])}
-                className="text-xs text-gray-500 hover:text-gray-700 ml-1"
+                className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors ml-1"
               >
                 Clear
               </button>
