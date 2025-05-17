@@ -80,6 +80,7 @@ const App = () => {
         toggleTaskCheck={toggleTaskCheck}
         openEditModal={openEditModal}
         confirmDeleteTask={confirmDeleteTask}
+        openManageModal={openManageModal}
         teamMembers={allTeamMembers}
       />
 

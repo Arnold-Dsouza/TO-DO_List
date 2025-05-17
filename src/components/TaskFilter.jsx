@@ -1,6 +1,5 @@
 import React from 'react';
 import Avatar from './Avatar';
-import { useSpring, animated } from '@react-spring/web';
 
 const TaskFilter = ({ 
   priorities,
@@ -92,34 +91,26 @@ const TaskFilter = ({
             <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Assignees:</span>
             {teamMembers.map(member => {
               const isSelected = selectedMembers.includes(member.id);
-              const springProps = useSpring({
-                scale: isSelected ? 1.05 : 1,
-                backgroundColor: isSelected ? '#dbeafe' : '#f3f4f6',
-                color: isSelected ? '#1e40af' : '#4b5563',
-                config: { tension: 300, friction: 10 }
-              });
 
               return (
-                <animated.button
+                <button
                   key={member.id}
                   type="button"
                   onClick={() => handleMemberToggle(member.id)}
                   style={{
-                    transform: springProps.scale.to(s => `scale(${s})`),
-                    backgroundColor: springProps.backgroundColor,
-                    color: springProps.color
+                    transform: isSelected ? 'scale(1.05)' : 'scale(1)'
                   }}
                   className={`
                     flex items-center gap-1 px-2 py-1 rounded-full text-xs
                     transition-all duration-200 hover:shadow-md
                     ${isSelected 
-                      ? 'border-2 border-blue-300 dark:border-blue-600 dark:bg-blue-800 dark:text-blue-100' 
-                      : 'border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300'}
+                      ? 'bg-blue-100 text-blue-800 border-2 border-blue-300 dark:bg-blue-800 dark:text-blue-100 dark:border-blue-600' 
+                      : 'bg-gray-100 text-gray-600 border border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'}
                   `}
                 >
                   <Avatar name={member.name} size="sm" />
                   <span>{member.name}</span>
-                </animated.button>
+                </button>
               );
             })}
             {selectedMembers.length > 0 && (

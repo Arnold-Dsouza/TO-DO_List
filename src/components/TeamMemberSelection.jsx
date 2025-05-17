@@ -1,6 +1,5 @@
 import React from 'react';
 import Avatar from './Avatar';
-import { useSpring, animated } from '@react-spring/web';
 
 const TeamMemberSelection = ({ teamMembers, selectedMembers, onChange, onManageMembers }) => {
   const toggleMember = (member) => {
@@ -30,27 +29,24 @@ const TeamMemberSelection = ({ teamMembers, selectedMembers, onChange, onManageM
       <div className="flex flex-wrap gap-2">
         {teamMembers.map(member => {
           const isSelected = selectedMembers.some(m => m.id === member.id);
-          const springProps = useSpring({
-            scale: isSelected ? 1.05 : 1,
-            backgroundColor: isSelected ? '#dbeafe' : '#f3f4f6',
-            color: isSelected ? '#1e40af' : '#4b5563',
-            config: { tension: 300, friction: 10 }
-          });
 
           return (
-            <animated.div 
+            <div 
               key={member.id}
               onClick={() => toggleMember(member)}
               style={{
-                transform: springProps.scale.to(s => `scale(${s})`),
-                backgroundColor: springProps.backgroundColor,
-                color: springProps.color
+                transform: isSelected ? 'scale(1.05)' : 'scale(1)',
               }}
-              className="flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md dark:bg-gray-700 dark:text-gray-300"
+              className={`
+                flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md
+                ${isSelected 
+                  ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' 
+                  : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'}
+              `}
             >
               <Avatar name={member.name} size="sm" />
               <span className="text-sm">{member.name}</span>
-            </animated.div>
+            </div>
           );
         })}
         {teamMembers.length === 0 && (
