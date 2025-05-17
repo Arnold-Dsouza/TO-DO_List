@@ -11,20 +11,10 @@ const TeamMemberSelection = ({ teamMembers, selectedMembers, onChange, onManageM
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-2">
+    <div>      <div className="flex justify-between items-center mb-2">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Assign team members:
         </label>
-        {onManageMembers && (
-          <button 
-            onClick={onManageMembers}
-            className="text-sm text-blue-500 hover:text-blue-700 transition-colors"
-            type="button"
-          >
-            Manage Team Members
-          </button>
-        )}
       </div>
       <div className="flex flex-wrap gap-2">
         {teamMembers.map(member => {
@@ -48,9 +38,8 @@ const TeamMemberSelection = ({ teamMembers, selectedMembers, onChange, onManageM
               <span className="text-sm">{member.name}</span>
             </div>
           );
-        })}
-        {teamMembers.length === 0 && (
-          <p className="text-sm text-gray-500">No team members available. Click "Manage Team Members" to add some.</p>
+        })}        {teamMembers.length === 0 && (
+          <p className="text-sm text-gray-500">No team members available.</p>
         )}
       </div>
     </div>

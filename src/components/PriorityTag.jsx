@@ -46,18 +46,17 @@ const PriorityTag = ({ priority }) => {
   };
 
   const config = priorityConfig[priority] || priorityConfig[2];
-
   return (
     <animated.div
       style={springProps}
       className={`
         inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium
         ${config.bg} ${config.text} border ${config.border}
-        transition-all duration-200 hover:scale-105
+        transition-all duration-200 hover:scale-105 whitespace-nowrap
       `}
     >
-      <span className="text-sm">{config.icon}</span>
-      <span>{config.label}</span>
+      <span className="flex items-center text-sm">{config.icon}</span>
+      <span className="flex items-center">{config.label}</span>
     </animated.div>
   );
 };

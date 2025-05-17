@@ -41,9 +41,10 @@ const TaskItem = ({
           onChange={() => toggleTaskCheck(task.id)}
           className="mr-3 h-5 w-5 text-blue-500 focus:ring-blue-400"
         />
-        <div className="flex flex-col space-y-1 flex-1">
-          <div className="flex items-center space-x-2">
-            <PriorityTag priority={task.priority} />
+        <div className="flex flex-col space-y-1 flex-1">          <div className="flex items-center gap-2">
+            <div className="flex-shrink-0">
+              <PriorityTag priority={task.priority} />
+            </div>
             <span
               className={`text-gray-800 ${
                 task.checked ? 'line-through text-gray-500' : ''
@@ -52,7 +53,7 @@ const TaskItem = ({
               {task.name}
             </span>
             {task.dueDate && (
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-gray-500 ml-2">
                 Due: {formatDate(task.dueDate)}
               </span>
             )}

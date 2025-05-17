@@ -181,11 +181,10 @@ const AddTaskForm = ({
             className="relative px-4 py-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(239,68,68,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(239,68,68,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-red-600 dark:border-red-700"
           >
             Delete All
-          </button>
-          <button
+          </button>          <button
             type="button"
             onClick={openTeamMembersModal}
-            className="relative px-4 py-2 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:shadow-md before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-purple-600 dark:border-purple-700"
+            className="relative px-4 py-2 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(168,85,247,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(168,85,247,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-purple-600 dark:border-purple-700"
           >
             Manage Team
           </button>
