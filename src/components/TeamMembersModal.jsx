@@ -91,16 +91,13 @@ const TeamMembersModal = ({ isOpen, onClose, teamMembers, onAdd, onUpdate, onDel
               {teamMembers.length > 0 ? (
                 teamMembers.map((member) => {
                   const isEditing = editingMember && editingMember.id === member.id;
-                  const springProps = useSpring({
-                    scale: isEditing ? 1.02 : 1,
-                    config: { tension: 300, friction: 10 }
-                  });
-
+                  
                   return (
-                    <animated.div
+                    <div
                       key={member.id}
-                      style={springProps}
-                      className="flex items-center justify-between bg-gray-50 dark:bg-gray-700 p-2 rounded-md"
+                      className={`flex items-center justify-between bg-gray-50 dark:bg-gray-700 p-2 rounded-md ${
+                        isEditing ? 'ring-2 ring-blue-400' : ''
+                      }`}
                     >
                       {isEditing ? (
                         <div className="flex gap-2 flex-grow">
@@ -152,7 +149,7 @@ const TeamMembersModal = ({ isOpen, onClose, teamMembers, onAdd, onUpdate, onDel
                           </div>
                         </>
                       )}
-                    </animated.div>
+                    </div>
                   );
                 })
               ) : (

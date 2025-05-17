@@ -8,6 +8,7 @@ const TaskList = ({
   toggleTaskCheck,
   openEditModal,
   confirmDeleteTask,
+  openManageModal,
   teamMembers,
 }) => {
   // Filter state
@@ -78,8 +79,7 @@ const TaskList = ({
         onCompletedChange={setShowCompleted}
       />
 
-      <ul className="divide-y divide-gray-200 dark:divide-gray-700 mt-4">
-        {filteredTasks.map((task) => (
+      <ul className="divide-y divide-gray-200 dark:divide-gray-700 mt-4">        {filteredTasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
@@ -91,6 +91,7 @@ const TaskList = ({
             toggleTaskCheck={toggleTaskCheck}
             openEditModal={openEditModal}
             confirmDeleteTask={confirmDeleteTask}
+            openManageModal={openManageModal}
           />
         ))}
         {filteredTasks.length === 0 && (
