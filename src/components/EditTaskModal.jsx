@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import TeamMemberSelection from './TeamMemberSelection';
 
 const EditTaskModal = ({
   isOpen,
@@ -6,6 +7,8 @@ const EditTaskModal = ({
   editingTask,
   setEditingTask,
   saveEditedTask,
+  teamMembers,
+  openTeamMembersModal,
 }) => {
   const editTaskNameInputRef = useRef(null);
 
@@ -22,6 +25,11 @@ const EditTaskModal = ({
   };
 
   if (!editingTask) return null;
+
+  // Initialize assignedMembers array if it doesn't exist
+  if (!editingTask.assignedMembers) {
+    editingTask.assignedMembers = [];
+  }
 
   return (
     <div
@@ -70,10 +78,7 @@ const EditTaskModal = ({
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Priority
               </label>
-              <input
-                type="number"
-                min="1"
-                max="5"
+              <select
                 value={editingTask.priority}
                 onChange={(e) =>
                   setEditingTask({
@@ -82,7 +87,13 @@ const EditTaskModal = ({
                   })
                 }
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              >
+                <option value={1}>Low</option>
+                <option value={2}>Normal</option>
+                <option value={3}>Medium</option>
+                <option value={4}>High</option>
+                <option value={5}>Urgent</option>
+              </select>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -97,25 +108,49 @@ const EditTaskModal = ({
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-          </div>
+          </div>          {/* Team Member Selection */}
+          <TeamMemberSelection
+            teamMembers={teamMembers || []}
+            selectedMembers={editingTask.assignedMembers || []}
+            onChange={(members) =>
+              setEditingTask({ ...editingTask, assignedMembers: members })
+            }
+            onManageMembers={openTeamMembersModal}
+          />
+
           <div className="flex items-center">
             <input
               type="checkbox"
-              checked={editingTask.checked || false}
+              id="markAsCompleted"
+              checked={editingTask.checked}
               onChange={(e) =>
                 setEditingTask({ ...editingTask, checked: e.target.checked })
               }
-              className="mr-2 h-5 w-5 text-blue-500"
+              className="h-4 w-4 text-blue-500 focus:ring-blue-400"
             />
-            <label className="text-sm text-gray-700">Mark as completed</label>
+            <label
+              htmlFor="markAsCompleted"
+              className="ml-2 text-sm text-gray-700"
+            >
+              Mark as completed
+            </label>
           </div>
-          <button
-            type="button"
-            onClick={() => saveEditedTask(false)}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300"
-          >
-            Save Changes
-          </button>
+          <div className="flex justify-end space-x-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => saveEditedTask(false)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>

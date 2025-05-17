@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { formatDate } from '../utils/dateUtils';
+import AvatarGroup from './AvatarGroup';
+import PriorityTag from './PriorityTag';
 
 const SearchModal = ({ isOpen, onClose, tasks, toggleTaskCheck }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,52 +63,49 @@ const SearchModal = ({ isOpen, onClose, tasks, toggleTaskCheck }) => {
           </div>
         </div>
 
-        <ul className="divide-y divide-gray-200 max-h-60 overflow-y-auto">
-          {searchResults.length > 0 ? (
+        <ul className="divide-y divide-gray-200 max-h-60 overflow-y-auto">          {searchResults.length > 0 ? (
             searchResults.map((task) => (
               <li
                 key={task.id}
-                className="py-2 flex justify-between items-center hover:bg-gray-50"
+                className="py-3 flex flex-col hover:bg-gray-50 border-b"
               >
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={task.checked}
-                    onChange={() => toggleTaskCheck(task.id)}
-                    className="mr-2 h-4 w-4 text-blue-500"
-                  />
-                  <span
-                    className={`inline-block w-4 h-4 rounded-full mr-2 ${
-                      task.priority >= 4
-                        ? 'bg-red-500'
-                        : task.priority >= 3
-                        ? 'bg-yellow-500'
-                        : 'bg-green-500'
-                    }`}
-                  ></span>
-                  <div className="flex flex-col">
-                    <span
-                      className={
-                        task.checked ? 'line-through text-gray-500' : ''
-                      }
-                    >
-                      {task.name}
-                    </span>
-                    {task.note && (
-                      <span className="text-xs text-gray-500">{task.note}</span>
-                    )}
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={task.checked}
+                      onChange={() => toggleTaskCheck(task.id)}
+                      className="mr-3 h-4 w-4 text-blue-500"
+                    />
+                    <div className="flex flex-col space-y-1">
+                      <div className="flex items-center gap-2">
+                        <PriorityTag priority={task.priority} />
+                        <span
+                          className={
+                            task.checked ? 'line-through text-gray-500' : ''
+                          }
+                        >
+                          {task.name}
+                        </span>
+                      </div>
+                      {task.note && (
+                        <span className="text-xs text-gray-500">{task.note}</span>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-2">
                   {task.dueDate && (
                     <span className="text-xs text-gray-500">
-                      {formatDate(task.dueDate)}
+                      Due: {formatDate(task.dueDate)}
                     </span>
                   )}
-                  <span className="text-xs text-gray-500">
-                    Priority: {task.priority}
-                  </span>
                 </div>
+                
+                {/* Team member avatars */}
+                {task.assignedMembers && task.assignedMembers.length > 0 && (
+                  <div className="mt-2 ml-7">
+                    <AvatarGroup members={task.assignedMembers} max={3} />
+                  </div>
+                )}
               </li>
             ))
           ) : searchTerm ? (

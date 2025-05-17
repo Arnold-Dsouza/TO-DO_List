@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import useTeamMembers from './useTeamMembers';
 
 const useTasks = () => {
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('todoTasks');
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
+  
+  const { teamMembers } = useTeamMembers();
 
   const [editingTask, setEditingTask] = useState(null);
   const [taskToDelete, setTaskToDelete] = useState(null);
@@ -12,12 +15,11 @@ const useTasks = () => {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
   useEffect(() => {
     localStorage.setItem('todoTasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  const addTask = (taskName, priority, taskNote, dueDate) => {
+  const addTask = (taskName, priority, taskNote, dueDate, assignedMembers = []) => {
     if (taskName.trim() !== '') {
       const newTask = {
         id: Date.now(),
@@ -26,6 +28,7 @@ const useTasks = () => {
         note: taskNote,
         dueDate: dueDate,
         checked: false,
+        assignedMembers: assignedMembers,
       };
       setTasks([...tasks, newTask]);
       return true;

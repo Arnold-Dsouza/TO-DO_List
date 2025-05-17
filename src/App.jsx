@@ -4,15 +4,21 @@ import TaskList from './components/TaskList';
 import SearchModal from './components/SearchModal';
 import EditTaskModal from './components/EditTaskModal';
 import ConfirmModal from './components/ConfirmModal';
+import TeamMembersModal from './components/TeamMembersModal';
+import TaskStatistics from './components/TaskStatistics';
+import ThemeToggle from './components/ThemeToggle';
 import useTasks from './hooks/useTasks';
 import useDragAndDrop from './hooks/useDragAndDrop';
+import useTeamMembers from './hooks/useTeamMembers';
 
 const App = () => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [isTeamMembersModalOpen, setIsTeamMembersModalOpen] = useState(false);
 
   const {
     tasks,
     setTasks,
+    teamMembers,
     editingTask,
     setEditingTask,
     taskToDelete,
@@ -31,14 +37,28 @@ const App = () => {
     closeConfirmModal,
   } = useTasks();
 
+  const {
+    teamMembers: allTeamMembers,
+    addTeamMember, 
+    updateTeamMember, 
+    deleteTeamMember
+  } = useTeamMembers();
+
   const dragAndDropProps = useDragAndDrop(tasks, setTasks);
 
   return (
-    <div className="container mx-auto p-4 max-w-3xl">
+    <div className="container mx-auto p-4 max-w-3xl min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       <AddTaskForm
         addTask={addTask}
         setIsSearchModalOpen={setIsSearchModalOpen}
         confirmDeleteAllTasks={confirmDeleteAllTasks}
+        teamMembers={allTeamMembers}
+        openTeamMembersModal={() => setIsTeamMembersModalOpen(true)}
+      />
+
+      <TaskStatistics
+        tasks={tasks}
+        teamMembers={allTeamMembers}
       />
 
       <TaskList
@@ -47,6 +67,7 @@ const App = () => {
         toggleTaskCheck={toggleTaskCheck}
         openEditModal={openEditModal}
         confirmDeleteTask={confirmDeleteTask}
+        teamMembers={allTeamMembers}
       />
 
       <SearchModal
@@ -62,6 +83,8 @@ const App = () => {
         editingTask={editingTask}
         setEditingTask={setEditingTask}
         saveEditedTask={saveEditedTask}
+        teamMembers={allTeamMembers}
+        openTeamMembersModal={() => setIsTeamMembersModalOpen(true)}
       />
 
       <ConfirmModal
@@ -71,6 +94,17 @@ const App = () => {
         taskToDelete={taskToDelete}
         deleteAllConfirm={deleteAllConfirm}
       />
+
+      <TeamMembersModal
+        isOpen={isTeamMembersModalOpen}
+        onClose={() => setIsTeamMembersModalOpen(false)}
+        teamMembers={allTeamMembers}
+        onAdd={addTeamMember}
+        onUpdate={updateTeamMember}
+        onDelete={deleteTeamMember}
+      />
+
+      <ThemeToggle />
     </div>
   );
 };
