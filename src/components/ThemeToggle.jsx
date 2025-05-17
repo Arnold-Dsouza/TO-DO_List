@@ -30,11 +30,10 @@ const ThemeToggle = () => {
       setIsDarkMode(true);
     }
   };
-
   return (
     <button
       onClick={toggleTheme}
-      className="fixed bottom-4 right-4 p-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors focus:outline-none"
+      className="fixed top-4 right-4 p-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors focus:outline-none"
       title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {isDarkMode ? (

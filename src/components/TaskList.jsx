@@ -8,7 +8,6 @@ const TaskList = ({
   toggleTaskCheck,
   openEditModal,
   confirmDeleteTask,
-  openManageModal,
   teamMembers,
 }) => {
   // Filter state
@@ -86,12 +85,10 @@ const TaskList = ({
             draggedTask={dragAndDropProps.draggedTask}
             draggedOverTask={dragAndDropProps.draggedOverTask}
             handleDragStart={dragAndDropProps.handleDragStart}
-            handleDragOver={dragAndDropProps.handleDragOver}
-            handleDragEnd={dragAndDropProps.handleDragEnd}
+            handleDragOver={dragAndDropProps.handleDragOver}            handleDragEnd={dragAndDropProps.handleDragEnd}
             toggleTaskCheck={toggleTaskCheck}
             openEditModal={openEditModal}
             confirmDeleteTask={confirmDeleteTask}
-            openManageModal={openManageModal}
           />
         ))}
         {filteredTasks.length === 0 && (
