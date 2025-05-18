@@ -98,6 +98,7 @@ const App = () => {
         saveEditedTask={saveEditedTask}
         teamMembers={allTeamMembers}
         openTeamMembersModal={() => setIsTeamMembersModalOpen(true)}
+        confirmDeleteTask={confirmDeleteTask}
       />
 
       <ConfirmModal
