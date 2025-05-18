@@ -48,3 +48,68 @@
 .float-animation-reverse {
   animation: float-circle 10s ease-in-out infinite reverse;
 }
+
+/* Progress bar styles */
+.progress-bar-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.progress-bar:hover {
+  filter: brightness(1.1);
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.2);
+  }
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* These are now defined directly in the component with inline styles */
+.progress-bar-animate {
+  width: 0;
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+.progress-bar-animate-delay-1 {
+  width: 0;
+  animation: progress-fill 1.5s 0.3s ease-out forwards;
+}
+
+.progress-bar-animate-delay-2 {
+  width: 0;
+  animation: progress-fill 1.5s 0.6s ease-out forwards;
+}

@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PriorityTag from './PriorityTag';
 import Avatar from './Avatar';
 
-const TaskStatistics = ({ tasks, teamMembers }) => {
+const TaskStatistics = ({ tasks, teamMembers }) => {  const [animationStarted, setAnimationStarted] = useState(false);
+  
+  useEffect(() => {
+    // Use requestAnimationFrame for smoother animation starting
+    const animationFrame = requestAnimationFrame(() => {
+      setTimeout(() => {
+        setAnimationStarted(true);
+      }, 100);
+    });
+    
+    return () => {
+      cancelAnimationFrame(animationFrame);
+    };
+  }, []);
   // Calculate statistics
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(task => task.checked).length;
@@ -41,12 +54,12 @@ const TaskStatistics = ({ tasks, teamMembers }) => {
       <div className="mb-6">
         <div className="flex justify-between mb-2">
           <span className="text-gray-600 dark:text-gray-300">Overall Progress</span>
-          <span className="font-medium">{completedTasks} / {totalTasks} ({completionRate}%)</span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-          <div 
-            className="bg-blue-600 h-2.5 rounded-full" 
-            style={{ width: `${completionRate}%` }}
+          <span className="font-medium">{completedTasks} / {totalTasks} ({completionRate}%)</span>        </div>        <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 progress-bar-container">          <div 
+            className="bg-blue-600 h-2.5 rounded-full progress-bar"
+            style={{ 
+              width: animationStarted ? `${completionRate}%` : '0%',
+              transition: 'width 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }}
           ></div>
         </div>
         <div className="flex justify-between mt-2 text-sm text-gray-500">
@@ -70,15 +83,15 @@ const TaskStatistics = ({ tasks, teamMembers }) => {
                     <span className="text-xs text-gray-500">{item.completed} / {item.count}</span>
                     <span className="text-xs text-gray-500">
                       {item.count > 0 ? Math.round((item.completed / item.count) * 100) : 0}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
+                    </span>                  </div>                  <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700 progress-bar-container">
                     <div 
-                      className={`h-1.5 rounded-full ${
+                      className={`h-1.5 rounded-full progress-bar ${
                         item.priority >= 4 ? 'bg-red-500' : 
                         item.priority >= 3 ? 'bg-yellow-500' : 'bg-green-500'
-                      }`}
-                      style={{ width: `${item.count > 0 ? (item.completed / item.count) * 100 : 0}%` }}
+                      }`}                      style={{ 
+                        width: animationStarted ? `${item.count > 0 ? (item.completed / item.count) * 100 : 0}%` : '0%',
+                        transition: 'width 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s'
+                      }}
                     ></div>
                   </div>
                 </div>
@@ -107,12 +120,12 @@ const TaskStatistics = ({ tasks, teamMembers }) => {
                     <span className="text-xs text-gray-500">{completed} / {total}</span>
                     <span className="text-xs text-gray-500">
                       {total > 0 ? Math.round((completed / total) * 100) : 0}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
+                    </span>                  </div>                  <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700 progress-bar-container">
                     <div 
-                      className="bg-blue-500 h-1.5 rounded-full" 
-                      style={{ width: `${total > 0 ? (completed / total) * 100 : 0}%` }}
+                      className="bg-blue-500 h-1.5 rounded-full progress-bar"style={{ 
+                        width: animationStarted ? `${total > 0 ? (completed / total) * 100 : 0}%` : '0%',
+                        transition: 'width 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s'
+                      }}
                     ></div>
                   </div>
                 </div>
