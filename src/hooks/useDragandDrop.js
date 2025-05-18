@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useDragAndDrop = (tasks, setTasks) => {
+const useDragandDrop = (tasks, setTasks) => {
   const [draggedTask, setDraggedTask] = useState(null);
   const [draggedOverTask, setDraggedOverTask] = useState(null);
 
@@ -45,4 +45,4 @@ const useDragAndDrop = (tasks, setTasks) => {
   };
 };
 
-export default useDragAndDrop;
+export default useDragandDrop;

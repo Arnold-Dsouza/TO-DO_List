@@ -10,7 +10,7 @@ import TaskStatistics from './components/TaskStatistics';
 import ThemeToggle from './components/ThemeToggle';
 import AnimatedBackground from './components/AnimatedBackground';
 import useTasks from './hooks/useTasks';
-import useDragAndDrop from './hooks/useDragandDrop';
+import useDragandDrop from './hooks/useDragandDrop';
 import useTeamMembers from './hooks/useTeamMembers';
 
 const App = () => {
@@ -58,7 +58,7 @@ const App = () => {
     setManagingTask(null);
   };
 
-  const dragAndDropProps = useDragAndDrop(tasks, setTasks);
+  const dragAndDropProps = useDragandDrop(tasks, setTasks);
 
   return (
     <div className="container mx-auto p-4 max-w-3xl min-h-screen relative text-gray-900 dark:text-gray-100 transition-colors duration-200">
