@@ -40,9 +40,23 @@ const AnimatedCheckbox = ({ checked, onChange, className = '' }) => {
     transform: checked ? 'scale(1)' : 'scale(0.5)',
     config: { tension: 400, friction: 15 }
   });
-
   return (
-    <div className={`relative ${className}`} onClick={onChange}>
+    <div 
+      className={`relative ${className}`} 
+      onClick={(e) => {
+        e.stopPropagation(); // Prevent event bubbling
+        onChange();
+      }}
+      role="checkbox"
+      aria-checked={checked}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onChange();
+        }
+      }}
+    >
       <animated.div
         style={{
           ...checkboxAnimationProps,

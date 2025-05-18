@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { formatDate } from '../utils/dateUtils';
 import AvatarGroup from './AvatarGroup';
 import PriorityTag from './PriorityTag';
+import AnimatedCheckbox from './AnimatedCheckbox';
 import { useSpring, animated } from '@react-spring/web';
 
 const SearchModal = ({ isOpen, onClose, tasks, toggleTaskCheck }) => {
@@ -14,7 +15,6 @@ const SearchModal = ({ isOpen, onClose, tasks, toggleTaskCheck }) => {
     transform: isOpen ? 'scale(1)' : 'scale(0.95)',
     config: { tension: 300, friction: 20 }
   });
-
   useEffect(() => {
     if (isOpen && searchInputRef.current) {
       searchInputRef.current.focus();
@@ -22,6 +22,18 @@ const SearchModal = ({ isOpen, onClose, tasks, toggleTaskCheck }) => {
       setSearchResults([]);
     }
   }, [isOpen]);
+  
+  // Update search results when tasks change (e.g., when check status changes)
+  useEffect(() => {
+    if (searchTerm.trim() !== '') {
+      const results = tasks.filter(
+        (task) =>
+          task.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (task.note && task.note.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+      setSearchResults(results);
+    }
+  }, [tasks, searchTerm]);
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -80,14 +92,12 @@ const SearchModal = ({ isOpen, onClose, tasks, toggleTaskCheck }) => {
               <li
                 key={task.id}
                 className="py-3 flex flex-col hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700"
-              >
-                <div className="flex justify-between items-center">
+              >                <div className="flex justify-between items-center">
                   <div className="flex items-center">
-                    <input
-                      type="checkbox"
+                    <AnimatedCheckbox
                       checked={task.checked}
                       onChange={() => toggleTaskCheck(task.id)}
-                      className="mr-3 h-4 w-4 text-blue-500 focus:ring-blue-400"
+                      className="mr-3"
                     />
                     <div className="flex flex-col space-y-1">
                       <div className="flex items-center gap-2">
