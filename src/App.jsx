@@ -8,6 +8,7 @@ import TeamMembersModal from './components/TeamMembersModal';
 import ManageTaskModal from './components/ManageTaskModal';
 import TaskStatistics from './components/TaskStatistics';
 import ThemeToggle from './components/ThemeToggle';
+import AnimatedBackground from './components/AnimatedBackground';
 import useTasks from './hooks/useTasks';
 import useDragAndDrop from './hooks/useDragAndDrop';
 import useTeamMembers from './hooks/useTeamMembers';
@@ -60,75 +61,80 @@ const App = () => {
   const dragAndDropProps = useDragAndDrop(tasks, setTasks);
 
   return (
-    <div className="container mx-auto p-4 max-w-3xl min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
-      <AddTaskForm
-        addTask={addTask}
-        setIsSearchModalOpen={setIsSearchModalOpen}
-        confirmDeleteAllTasks={confirmDeleteAllTasks}
-        teamMembers={allTeamMembers}
-        openTeamMembersModal={() => setIsTeamMembersModalOpen(true)}
-      />
+    <div className="container mx-auto p-4 max-w-3xl min-h-screen relative text-gray-900 dark:text-gray-100 transition-colors duration-200">
+      <AnimatedBackground />
+      <div className="relative z-10">
+        <AddTaskForm
+          addTask={addTask}
+          setIsSearchModalOpen={setIsSearchModalOpen}
+          confirmDeleteAllTasks={confirmDeleteAllTasks}
+          teamMembers={allTeamMembers}
+          openTeamMembersModal={() => setIsTeamMembersModalOpen(true)}
+        />
 
-      <TaskStatistics
-        tasks={tasks}
-        teamMembers={allTeamMembers}
-      />
+        <TaskStatistics
+          tasks={tasks}
+          teamMembers={allTeamMembers}
+        />
 
-      <TaskList
-        tasks={tasks}
-        dragAndDropProps={dragAndDropProps}
-        toggleTaskCheck={toggleTaskCheck}
-        openEditModal={openEditModal}
-        confirmDeleteTask={confirmDeleteTask}
-        teamMembers={allTeamMembers}
-      />
+        <TaskList
+          tasks={tasks}
+          dragAndDropProps={dragAndDropProps}
+          toggleTaskCheck={toggleTaskCheck}
+          openEditModal={openEditModal}
+          confirmDeleteTask={confirmDeleteTask}
+          teamMembers={allTeamMembers}
+        />
 
-      <SearchModal
-        isOpen={isSearchModalOpen}
-        onClose={() => setIsSearchModalOpen(false)}
-        tasks={tasks}
-        toggleTaskCheck={toggleTaskCheck}
-      />
+        <SearchModal
+          isOpen={isSearchModalOpen}
+          onClose={() => setIsSearchModalOpen(false)}
+          tasks={tasks}
+          toggleTaskCheck={toggleTaskCheck}
+        />
 
-      <EditTaskModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        editingTask={editingTask}
-        setEditingTask={setEditingTask}
-        saveEditedTask={saveEditedTask}
-        teamMembers={allTeamMembers}
-        openTeamMembersModal={() => setIsTeamMembersModalOpen(true)}
-        confirmDeleteTask={confirmDeleteTask}
-      />
+        <EditTaskModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          editingTask={editingTask}
+          setEditingTask={setEditingTask}
+          saveEditedTask={saveEditedTask}
+          teamMembers={allTeamMembers}
+          openTeamMembersModal={() => setIsTeamMembersModalOpen(true)}
+          confirmDeleteTask={confirmDeleteTask}
+        />
 
-      <ConfirmModal
-        isOpen={isConfirmModalOpen}
-        onClose={closeConfirmModal}
-        onConfirm={deleteAllConfirm ? deleteAllTasks : deleteTask}
-        taskToDelete={taskToDelete}
-        deleteAllConfirm={deleteAllConfirm}
-      />
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          onClose={closeConfirmModal}
+          onConfirm={deleteAllConfirm ? deleteAllTasks : deleteTask}
+          taskToDelete={taskToDelete}
+          deleteAllConfirm={deleteAllConfirm}
+        />
 
-      <TeamMembersModal
-        isOpen={isTeamMembersModalOpen}
-        onClose={() => setIsTeamMembersModalOpen(false)}
-        teamMembers={allTeamMembers}
-        onAdd={addTeamMember}
-        onUpdate={updateTeamMember}
-        onDelete={deleteTeamMember}
-      />
+        <TeamMembersModal
+          isOpen={isTeamMembersModalOpen}
+          onClose={() => setIsTeamMembersModalOpen(false)}
+          teamMembers={allTeamMembers}
+          onAdd={addTeamMember}
+          onUpdate={updateTeamMember}
+          onDelete={deleteTeamMember}
+        />
 
-      <ManageTaskModal
-        isOpen={isManageModalOpen}
-        onClose={closeManageModal}
-        task={managingTask}
-        toggleTaskCheck={toggleTaskCheck}
-        openEditModal={openEditModal}
-        confirmDeleteTask={confirmDeleteTask}
-        teamMembers={allTeamMembers}
-      />
+        <ManageTaskModal
+          isOpen={isManageModalOpen}
+          onClose={closeManageModal}
+          task={managingTask}
+          toggleTaskCheck={toggleTaskCheck}
+          openEditModal={openEditModal}
+          confirmDeleteTask={confirmDeleteTask}
+          teamMembers={allTeamMembers}
+        />
 
-      <ThemeToggle />
+        <div className="z-10 relative">
+          <ThemeToggle />
+        </div>
+      </div>
     </div>
   );
 };
