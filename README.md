@@ -43,13 +43,6 @@ npm run build
 
 The built files will be in the `dist` directory.
 
-## Deployment on Vercel
-
-This project is configured for easy deployment on Vercel:
-
-1. Connect your GitHub repository to Vercel
-2. Vercel will automatically detect the configuration and build settings
-3. Your app will be deployed and accessible via a Vercel URL
 
 ## Development
 
