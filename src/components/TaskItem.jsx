@@ -65,21 +65,21 @@ const TaskItem = ({
             >
               {task.note}
             </span>
-          )}
-          {/* Team member avatars */}
+          )}          {/* Team member avatars */}
           {task.assignedMembers && task.assignedMembers.length > 0 && (
             <div className="mt-1">
               <AvatarGroup members={task.assignedMembers} max={3} />
-            </div>
-          )}        </div>      </div>      <div className="ml-2">        <button
-          onClick={() => openEditModal(task)}
-          title="Edit"
-          className="relative p-2 text-blue-500 hover:text-blue-700 bg-transparent dark:bg-transparent rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(59,130,246,0.2)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(59,130,246,0.2)] before:absolute before:inset-0 before:bg-blue-200/10 dark:before:bg-blue-400/10 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-transparent hover:border-blue-200 dark:hover:border-blue-800"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            </div>          )}        </div>      </div>      <div className="ml-2">        
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-5 w-5 text-gray-400 hover:text-blue-500 cursor-pointer transition-all duration-200 transform hover:-translate-y-1" 
+            viewBox="0 0 20 20" 
+            fill="currentColor"
+            onClick={() => openEditModal(task)}
+            title="Edit"
+          >
             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
           </svg>
-        </button>
       </div>
     </li>
   );
