@@ -122,16 +122,14 @@ const ManageTaskModal = ({
                 <AvatarGroup members={task.assignedMembers} max={10} />
               </div>
             </div>
-          )}
-
-          {/* Action buttons */}
+          )}          {/* Action buttons */}
           <div className="grid grid-cols-2 gap-3 mt-4">
             <button
               onClick={() => {
                 onClose();
                 openEditModal(task);
               }}
-              className="relative px-4 py-2 text-blue-500 hover:text-blue-700 bg-blue-50 dark:bg-blue-900/20 rounded-md transition-all duration-200 border-b-4 border-blue-200 dark:border-blue-800 flex items-center justify-center"
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors flex items-center justify-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -143,26 +141,24 @@ const ManageTaskModal = ({
                 onClose();
                 confirmDeleteTask(task.id);
               }}
-              className="relative px-4 py-2 text-red-500 hover:text-red-700 bg-red-50 dark:bg-red-900/20 rounded-md transition-all duration-200 border-b-4 border-red-200 dark:border-red-800 flex items-center justify-center"
+              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors flex items-center justify-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
               Delete Task
             </button>
-          </div>
-
-          <div className="grid grid-cols-1 gap-3">
+          </div>          <div className="grid grid-cols-1 gap-3">
             <button
               onClick={() => {
                 toggleTaskCheck(task.id);
                 onClose();  // Close the modal after toggling
               }}
-              className={`relative px-4 py-2 ${
+              className={`px-4 py-2 ${
                 task.checked 
-                  ? 'text-green-500 hover:text-green-700 bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' 
-                  : 'text-gray-500 hover:text-gray-700 bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600'
-              } rounded-md transition-all duration-200 border-b-4 flex items-center justify-center`}
+                  ? 'bg-green-500 hover:bg-green-600' 
+                  : 'bg-gray-500 hover:bg-gray-600'
+              } text-white rounded-md transition-colors flex items-center justify-center`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
