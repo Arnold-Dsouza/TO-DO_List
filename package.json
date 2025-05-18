@@ -1,13 +1,17 @@
 {
-  "name": "todo-list-jsx",
+  "name": "todo-list-app",
   "private": true,
-  "version": "0.0.0",
-  "type": "commonjs",
-  "scripts": {
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A modern task management application with animated UI and team collaboration features",
+  "author": "Arnold Dsouza",
+  "license": "MIT",  "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview",
+    "deploy": "vercel"
   },
   "dependencies": {
     "@react-spring/web": "^10.0.0",
