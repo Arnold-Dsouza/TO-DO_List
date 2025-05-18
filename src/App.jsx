@@ -10,7 +10,7 @@ import TaskStatistics from './components/TaskStatistics';
 import ThemeToggle from './components/ThemeToggle';
 import AnimatedBackground from './components/AnimatedBackground';
 import useTasks from './hooks/useTasks';
-import useDragAndDrop from './hooks/useDragAndDrop';
+import useDragAndDrop from './hooks/useDragandDrop';
 import useTeamMembers from './hooks/useTeamMembers';
 
 const App = () => {
