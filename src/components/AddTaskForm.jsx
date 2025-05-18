@@ -158,33 +158,32 @@ const AddTaskForm = ({
           selectedMembers={selectedMembers}
           onChange={setSelectedMembers}
           onManageMembers={openTeamMembersModal}
-        />
-
-        <div className="flex flex-wrap gap-3">
+        />        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button
             type="button"
             onClick={handleAddTask}
-            className="relative px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(59,130,246,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(59,130,246,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-blue-600 dark:border-blue-700"
+            className="relative px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(59,130,246,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(59,130,246,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-blue-600 dark:border-blue-700 w-full"
           >
             Add Item
           </button>
           <button
             type="button"
             onClick={() => setIsSearchModalOpen(true)}
-            className="relative px-4 py-2 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(34,197,94,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(34,197,94,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-green-600 dark:border-green-700"
+            className="relative px-4 py-2 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(34,197,94,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(34,197,94,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-green-600 dark:border-green-700 w-full"
           >
             Search
           </button>
           <button
             type="button"
             onClick={confirmDeleteAllTasks}
-            className="relative px-4 py-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(239,68,68,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(239,68,68,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-red-600 dark:border-red-700"
+            className="relative px-4 py-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(239,68,68,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(239,68,68,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-red-600 dark:border-red-700 w-full"
           >
             Delete All
-          </button>          <button
+          </button>
+          <button
             type="button"
             onClick={openTeamMembersModal}
-            className="relative px-4 py-2 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(168,85,247,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(168,85,247,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-purple-600 dark:border-purple-700"
+            className="relative px-4 py-2 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white rounded-md transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-[0_8px_0_0_rgba(168,85,247,0.3)] active:translate-y-0 active:shadow-[0_4px_0_0_rgba(168,85,247,0.3)] before:absolute before:inset-0 before:bg-white/20 before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-200 border-b-4 border-purple-600 dark:border-purple-700 w-full"
           >
             Manage Team
           </button>
