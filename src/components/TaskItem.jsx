@@ -2,6 +2,7 @@ import React from 'react';
 import { formatDate } from '../utils/dateUtils';
 import AvatarGroup from './AvatarGroup';
 import PriorityTag from './PriorityTag';
+import AnimatedCheckbox from './AnimatedCheckbox';
 
 const TaskItem = ({
   task,
@@ -30,13 +31,11 @@ const TaskItem = ({
       draggable="true"
       onDragStart={() => handleDragStart(task)}
       onDragOver={(e) => handleDragOver(e, task)}
-      onDragEnd={handleDragEnd}
-    >      <div className="flex items-center flex-1">
-        <input
-          type="checkbox"
+      onDragEnd={handleDragEnd}    >      <div className="flex items-center flex-1">
+        <AnimatedCheckbox
           checked={task.checked}
           onChange={() => toggleTaskCheck(task.id)}
-          className="mr-3 h-5 w-5 text-blue-500 focus:ring-blue-400"
+          className="mr-3"
         />
         <div className="flex flex-col space-y-2 flex-1">
           <div className="flex items-center gap-4">
